@@ -12,7 +12,7 @@ router.post("/login", async (req, res) => {
   try {
     await allValue.forEach(index => {
       if (index.token != null) {
-        return res.send("Please Logout first");
+        return res.send("User Already Logged In");
       }
     });
     const foundValue = await userDB.findOne({ email: userEmail });
@@ -22,12 +22,12 @@ router.post("/login", async (req, res) => {
       let time = date.getTime();
       token = jwt.encode({ email: userEmail, time }, secretKey);
       await userDB.updateOne({ email: userEmail }, { token: token });
-       res.send("success");
+      res.send("success");
     } else {
-       res.send("Wrong email or password  !");
+      res.send("Wrong Email or Password");
     }
   } catch {
-    return res.send("Wrong email or password  !");
+    return res.send("Wrong Email or Password");
   }
 });
 

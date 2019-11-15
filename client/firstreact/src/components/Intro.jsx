@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  MDBMask,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBView,
-  MDBContainer
-} from "mdbreact";
+import { MDBMask, MDBRow, MDBCol, MDBBtn, MDBView, MDBContainer } from "mdbreact";
 
 class Intro extends Component {
   render() {
@@ -31,20 +24,21 @@ class Intro extends Component {
                   <h5 className="text-uppercase pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5 orange-text font-weight-bold">
                     CODE - COFFEE - REPEAT{" "}
                   </h5>
+
                   <MDBBtn
                     className="white btn-light-blue"
                     size="lg"
                     onClick={() => {
-                      this.props.click(1);
-                    }}
-                  >
+                      this.props.value(1);
+                    }}>
                     log in
                   </MDBBtn>
+
                   <MDBBtn
                     className="white btn-indigo"
                     size="lg"
                     onClick={() => {
-                      this.props.click(2);
+                      this.props.value(2);
                     }}
                   >
                     signup

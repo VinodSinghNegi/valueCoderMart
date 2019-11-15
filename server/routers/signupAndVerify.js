@@ -10,6 +10,7 @@ router.post("/signup", async (req, res) => {
   tempEmail = req.body.email;
   const checkUser = await userDB.findOne({ email: tempEmail });
 
+
   try {
     if (checkUser == null) {
       console.log("http://localhost:8888/verifyaccount");
@@ -17,8 +18,8 @@ router.post("/signup", async (req, res) => {
     } else {
       res.send("User already exist");
     }
-  } catch {
-    res.send("Error creating account");
+  } catch (e) {
+    res.send("Error creating account" + e);
   }
 });
 

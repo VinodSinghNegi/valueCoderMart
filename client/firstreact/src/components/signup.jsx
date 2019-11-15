@@ -20,14 +20,14 @@ class SignupPage extends Component {
   render() {
     return (
       <MDBContainer>
-        <MDBRow>
+        <MDBRow className="rgba-white-light d-flex justify-content-center">
           <MDBCol md="6">
-            <MDBBtn color="indigo" onClick={() => {this.props.click(0)}}>
+            <MDBBtn color="indigo" onClick={() => { this.props.value(0) }}>
               Back
             </MDBBtn>
             <form onSubmit={this.onFormSubmit}>
-              <div className="rgba-white-light justify-content-center align-items-center">
-                <p className="h4 text-center mb-4">Sign up</p>
+              <div>
+                <p className="h1 text-center mb-4 orange-text">Sign up</p>
                 <label
                   htmlFor="defaultFormRegisterNameEx"
                   className="black-text"

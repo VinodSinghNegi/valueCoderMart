@@ -6,61 +6,85 @@ import Intro from "./components/Intro";
 import HomePage from "./components/homepage";
 
 class App extends Component {
-  state = { value: 0, responseFromLoginPage: "error" };
-
-  changeResponse = val => {
-    this.setState({ responseFromLoginPage: val });
+  state = {
+    value: 0,
+    isLogin: "error",
+    isLogout: "error",
+    email: ""
   };
 
-  changeValue = val => {
+  loginStatus = val => {
+    this.setState({ isLogin: val });
+  };
+
+  valueStatus = val => {
     this.setState({ value: val });
   };
 
-  render() {
-    console.log(this.state);
+  logoutStatus = val => {
+    this.setState({ isLogout: val });
+  };
 
-    if (this.state.value === 0) {
-      console.log("value 0");
+  getEmail = val => {
+    this.setState({ email: val });
+  };
+
+
+
+  render() {
+
+    if (this.state.value === 0 && this.state.isLogin === "error") {
       return (
         <div>
-          <Intro click={this.changeValue} />
-        </div>
-      );
-    } else if (
-      this.state.value === 1 &&
-      this.state.responseFromLoginPage === "success"
-    ) {
-      console.log("value 1 and success ");
-      return (
-        <div>
-          <HomePage />
-        </div>
-      );
-    } else if (this.state.value === 1) {
-      console.log("value 1");
-      return (
-        <div>
-          <Login click={this.changeValue} pick={this.changeResponse} />
-        </div>
-      );
-    } else if (this.state.value === 2) {
-      console.log("value 2");
-      return (
-        <div>
-          <SignUp click={this.changeValue} />
-        </div>
-      );
-    } else if (
-      this.state.value === 1 &&
-      this.state.responseFromLoginPage === "error"
-    ) {
-      console.log("value 1 and error ");
-      return (
-        <div>
-          <Login pick={this.changeResponse} />
+          <Intro value={this.valueStatus} />
         </div>
       );
     }
+
+    else if (this.state.value === 1 && this.state.isLogin === "error") {
+      return (
+        <div>
+          <Login
+            value={this.valueStatus}
+            login={this.loginStatus}
+            email={this.getEmail}
+          />
+        </div>
+      );
+    }
+
+    else if (this.state.value === 2 && this.state.isLogin === "error") {
+      return (
+        <div>
+          <SignUp value={this.valueStatus} />
+        </div>
+      );
+    }
+
+    else if (
+      this.state.value === 1 && this.state.isLogin === "success") {
+      return (
+        <div>
+          <HomePage
+            email={this.state.email}
+            logout={this.logoutStatus}
+            login={this.loginStatus}
+            value={this.valueStatus}
+          />
+        </div>
+      );
+    }
+
+    else if (
+      this.state.isLogin === "success" && this.state.isLogout === "success") {
+      console.log(this.state);
+      return (
+        <div>
+          <Intro />
+        </div>
+      );
+    }
+
   }
 }
 

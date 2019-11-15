@@ -1,22 +1,36 @@
 import React, { Component } from "react";
-import {
-  MDBMask,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBView,
-  MDBContainer
-} from "mdbreact";
+import { MDBMask, MDBRow, MDBCol, MDBBtn, MDBView, MDBContainer } from "mdbreact";
 import Axios from "axios";
+import Addproduct from "./addproduct"
+import { JwModal } from './JwModal';
+import Cookie from 'js-cookie';
+import Logout from './logout'
+import ShowProducts from './showproducts'
 
 class HomePage extends Component {
-  onLogout = async event => {
-    event.preventDefault();
-    await Axios.post("/logout", {
-      email: this.state.email,
-      password: this.state.password
-    });
-  };
+
+  state = { gotoProducts: "", submitted: false, showProducts: null };
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  isSubmitted = async (val) => {
+    await this.setState({ submitted: val })
+
+    if (this.state.submitted === true) {
+      this.setState({ gotoProducts: null })
+      this.setState({ showProducts: <ShowProducts email={this.props.email} /> })
+    }
+  }
+
+
+  onAddProduct = () => {
+    this.setState({ gotoProducts: <Addproduct email={this.props.email} submitted={this.isSubmitted} /> })
+  }
+
+
   render() {
     return (
       <>
@@ -24,29 +38,36 @@ class HomePage extends Component {
           src={`http://cdn.miscellaneoushi.com/2000x1000/20180527/5b0a6591f2310.jpg`}
           fixed
         >
-          <MDBMask className=" justify-content-center align-items-center">
+
+          <MDBMask>
             <MDBContainer>
-              <MDBRow>
+              <div style={{ float: 'right' }} size="sm">
+                <Logout email={this.props.email} logout={this.props.logout} value={this.props.value} login={this.props.login} />
+              </div>
+              <MDBRow className=" justify-content-center align-items-center">
                 <MDBCol md="12" className="mb-4 white-text text-center">
-                  <h1 className="display-3 mb-0 pt-md-5 pt-5 indigo-text font-weight-bold">
+                  <h4 className="display-3 mb-0 pt-md-5 pt-5 indigo-text font-weight-bold">
                     VALUE{" "}
                     <span className="orange-text font-weight-bold">
                       CODERS{" "}
                     </span>
                     <span className="white-text font-weight-bold">MART</span>
-                  </h1>
-                  <MDBBtn className="white btn-light-blue" size="lg">
-                    Add Items
+                  </h4>
+
+                  <MDBBtn className="white btn-light-blue" size="sm" onClick={() => { this.onAddProduct() }}>
+                    Add Products
                   </MDBBtn>
-                  <MDBBtn
-                    className="white btn-light-blue"
-                    size="lg"
-                    onClick={this.onLogout}
-                  >
-                    Logout
-                  </MDBBtn>
+                  <div style={{ float: 'center' }}>
+                    {this.state.gotoProducts}
+                    {this.state.showProducts}
+                  </div>
+
+
+
+                  {/* <button onClick={JwModal.open('custom-modal-1')}>Add products</button>  */}
                 </MDBCol>
               </MDBRow>
+
             </MDBContainer>
           </MDBMask>
         </MDBView>

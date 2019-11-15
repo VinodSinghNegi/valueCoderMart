@@ -9,12 +9,12 @@ router.post("/logout", async (req, res) => {
   );
   try {
     if (value != null) {
-      return res.send("You are now logged out");
+      return res.send("success");
     } else {
-      return res.send("Please Login first");
+      return res.send("error");
     }
   } catch {
-    return res.send("error logging out");
+    return res.send("error");
   }
 });
 module.exports = router;

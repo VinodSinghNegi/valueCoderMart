@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
-const items=mongoose.model('items',{
-    name:{
-        type:String
+const items = mongoose.model('items', {
+    name: {
+        type: String,
+        default: null
     }
 })
 
-module.exports=items
+module.exports = items

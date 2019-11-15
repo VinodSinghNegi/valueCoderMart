@@ -3,20 +3,35 @@ const userDB = require("../models/signup");
 const itemDB = require("../models/items");
 const router = new express.Router();
 
-// router.get('/items',(req,res)=>{
+router.post('/items/show', async (req, res) => {
+  const email = req.body.email
+  try {
+    const userData = await userDB.findOne({ email })
+    const userProducts = userData.itemsSelected
+    res.send(userProducts)
+  } catch (e) {
+    res.send("error" + e)
+  }
 
-// })
+})
 
 router.post("/items", async (req, res) => {
-  const item = req.body.item;
+  const putItem = req.body.itemName;
+  const putProduct = req.body.productName;
   const email = req.body.email;
   try {
-    console.log(item);
-    await userDB.findOneAndUpdate({ email }, { itemsSelected: item });
 
-    res.send("Items saved successfully");
+    const userData = await userDB.findOne({ email });
+    const userProducts = userData.itemsSelected;
+    await userDB.updateOne({ email }, { itemsSelected: { [putProduct]: putItem }, ...userProducts });
+
+
+
+
+    res.send("success");
   } catch (e) {
-    res.send("Error saving items");
+    console.log(e)
+    res.send("error");
   }
 });
 

@@ -32,11 +32,7 @@ const user = mongoose.model("user", {
     default: null
   },
   itemsSelected: {
-    name: {
-      type: String,
-      unique: true,
-      default: null
-    }
+    type:Object
   }
 });
 
