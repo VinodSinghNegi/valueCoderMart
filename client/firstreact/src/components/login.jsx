@@ -5,6 +5,8 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import Cookie from 'js-cookie';
 import Axios from "axios";
+import { Route, Link } from "react-router-dom"
+import HomePage from "./homepage"
 
 class LoginPage extends Component {
   state = { email: "", password: "", responseFromServer: "" };
@@ -68,6 +70,7 @@ class LoginPage extends Component {
                   <MDBBtn color="indigo" type="submit">
                     Login
                   </MDBBtn>
+
                 </div>
               </div>
             </form>

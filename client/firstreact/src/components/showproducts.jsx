@@ -1,35 +1,43 @@
 import React, { Component } from "react"
 import Axios from "axios"
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
+
 class ShowProducts extends Component {
-    state = { listOfProduct: null }
+    state = { itemlist: [], productname: "" }
 
     async componentDidMount() {
         const res = await Axios.post('/items/show', {
             email: this.props.email
         })
-        this.setState({ listOfProduct: res.data })
-        console.log(this.state.listOfProduct)
+        this.setState({ itemlist: res.data[Object.keys(res.data)], productname: Object.keys(res.data) })
+
     }
-    renderList(){
-        return this.state.listOfProduct.map((product)=>{
+
+
+    renderList() {
+        var count = 0
+        return this.state.itemlist.map((item) => {
+            count++;
             return (
-                <li>{product}</li>
+                <li key={count}>{item}</li>
             )
         })
     }
 
     render() {
-        console.log(this.state.listOfProduct)
+        console.log(this.state.itemlist)
         return (
             <MDBCol>
                 <MDBCard style={{ width: "22rem" }}>
                     <MDBCardBody>
                         <MDBCardTitle>Card title</MDBCardTitle>
                         <MDBCardText>
+                            {this.state.productname}
+                            {this.state.itemlist ? this.renderList() : ""}
                             {/* {this.renderList()} */}
+
+                            <MDBBtn href="#">Edit</MDBBtn> <MDBBtn href="#">Delete</MDBBtn>
                         </MDBCardText>
-                        <MDBBtn href="#">Edit</MDBBtn> <MDBBtn href="#">Delete</MDBBtn>
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>

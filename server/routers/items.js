@@ -23,14 +23,9 @@ router.post("/items", async (req, res) => {
 
     const userData = await userDB.findOne({ email });
     const userProducts = userData.itemsSelected;
-    await userDB.updateOne({ email }, { itemsSelected: { [putProduct]: putItem }, ...userProducts });
-
-
-
-
+    await userDB.updateOne({ email }, { itemsSelected: { ...userProducts, [putProduct]: putItem } });
     res.send("success");
   } catch (e) {
-    console.log(e)
     res.send("error");
   }
 });

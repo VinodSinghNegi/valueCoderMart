@@ -10,11 +10,11 @@ router.post("/login", async (req, res) => {
   const userPass = req.body.password;
   const allValue = await userDB.find({});
   try {
-    await allValue.forEach(index => {
-      if (index.token != null) {
-        return res.send("User Already Logged In");
-      }
-    });
+    // await allValue.forEach(index => {
+    //   if (index.token != null) {
+    //     return res.send("User Already Logged In");
+    //   }
+    // });
     const foundValue = await userDB.findOne({ email: userEmail });
     if (foundValue.password == userPass) {
       const secretKey = "correct";

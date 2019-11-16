@@ -6,6 +6,7 @@ import { JwModal } from './JwModal';
 import Cookie from 'js-cookie';
 import Logout from './logout'
 import ShowProducts from './showproducts'
+import PreviousList from './previouslist'
 
 class HomePage extends Component {
 
@@ -34,43 +35,44 @@ class HomePage extends Component {
   render() {
     return (
       <>
-        <MDBView
-          src={`http://cdn.miscellaneoushi.com/2000x1000/20180527/5b0a6591f2310.jpg`}
-          fixed
-        >
 
-          <MDBMask>
-            <MDBContainer>
-              <div style={{ float: 'right' }} size="sm">
-                <Logout email={this.props.email} logout={this.props.logout} value={this.props.value} login={this.props.login} />
-              </div>
-              <MDBRow className=" justify-content-center align-items-center">
-                <MDBCol md="12" className="mb-4 white-text text-center">
-                  <h4 className="display-3 mb-0 pt-md-5 pt-5 indigo-text font-weight-bold">
-                    VALUE{" "}
-                    <span className="orange-text font-weight-bold">
-                      CODERS{" "}
-                    </span>
-                    <span className="white-text font-weight-bold">MART</span>
-                  </h4>
 
-                  <MDBBtn className="white btn-light-blue" size="sm" onClick={() => { this.onAddProduct() }}>
-                    Add Products
+        <MDBMask>
+          <MDBContainer>
+            <div style={{ float: 'right' }} size="sm">
+              <Logout email={this.props.email} logout={this.props.logout} value={this.props.value} login={this.props.login} />
+            </div>
+            <MDBRow className=" justify-content-center align-items-center">
+              <MDBCol md="12" className="mb-4 white-text text-center">
+                <h4 className="display-3 mb-0 pt-md-5 pt-5 indigo-text font-weight-bold">
+                  VALUE{" "}
+                  <span className="orange-text font-weight-bold">
+                    CODERS{" "}
+                  </span>
+                  <span className="white-text font-weight-bold">MART</span>
+                </h4>
+
+                <MDBBtn className="white btn-light-blue" size="sm" onClick={() => { this.onAddProduct() }}>
+                  Add Products
                   </MDBBtn>
-                  <div style={{ float: 'center' }}>
-                    {this.state.gotoProducts}
-                    {this.state.showProducts}
-                  </div>
+                <div style={{ float: 'center' }}><center>
+                  {
+                    this.props.email ? <PreviousList email={this.props.email} /> : ""
+                  }
 
+                  {this.state.gotoProducts}
+                  {/* {this.state.showProducts} */}
 
+                </center>
+                </div>
 
-                  {/* <button onClick={JwModal.open('custom-modal-1')}>Add products</button>  */}
-                </MDBCol>
-              </MDBRow>
+                {/* <button onClick={JwModal.open('custom-modal-1')}>Add products</button>  */}
+              </MDBCol>
+            </MDBRow>
 
-            </MDBContainer>
-          </MDBMask>
-        </MDBView>
+          </MDBContainer>
+        </MDBMask>
+
       </>
     );
   }
